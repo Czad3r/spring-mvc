@@ -4,16 +4,17 @@
     <title>Cytatuję</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" th:href="@{layout.css}"/>
-    <link rel="stylesheet" th:href="@{error.css}"/>
+    <link rel="stylesheet" th:href="@{/layout.css}"/>
+    <link rel="stylesheet" th:href="@{/main.css}"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
 <div class="main-content">
 
-    <div class="error page">
-        <h3>Zabłądziłeś, może wróć na główną stronę?</h3>
+    <div class="banner page">
+        <h1> Miejsce dla Twoich ulubionych cytatów...</h1>
+        <a class="button" href="/quotesList">Kontynuuj</a>
     </div>
 
 </div>

@@ -14,10 +14,16 @@ public class MainController {
     private QuoteRepository quoteRepository;
 
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
     @GetMapping("/registerForm")
     public String registerForm() {
         return "registerForm";
     }
+
 
     @GetMapping("/registered")
     public String registered() {
@@ -34,7 +40,6 @@ public class MainController {
     public String memoryGame() {
         return "memoryGame";
     }
-
 
 
     @GetMapping("/downloadSource")

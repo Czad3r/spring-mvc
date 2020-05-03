@@ -1,108 +1,80 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cytatuję</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="layout.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="memoryGame.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{layout.css}"/>
+    <link rel="stylesheet" th:href="@{memoryGame.css}"/>
 </head>
 <body>
-    <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-            <a href="/">Cytatuję</a>
-        </div>
-        <div class="nav-btn">
-            <label for="nav-check">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-        </div>
+<div th:replace="fragments/header :: header"></div>
 
-        <div class="nav-links">
-            <a href="/registerForm">Formularz rejestracyjny</a>
-            <a href="/contact" >Kontakt</a>
-            <a href="/quotesList" >Cytaty</a>
-            <a href="/memoryGame" >Gra memory</a>
-            <a href="/downloadSource" >Pobierz kod</a>
-        </div>
-    </div>
+<div class="main-content">
 
-    <div class="main-content">
+    <div class="memory-board page">
 
-        <div class="memory-board page">
+        <div class="memory-game">
+            <div class="memory-card" data-value="1">
+                <img class="card-front" src="images/memory-game/1.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="1">
+                <img class="card-front" src="images/memory-game/1.svg" alt="1"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
 
-            <div class="memory-game">
-                <div class="memory-card" data-value="1">
-                    <img class="card-front" src="images/memory-game/1.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="1">
-                    <img class="card-front" src="images/memory-game/1.svg" alt="1" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
+            <div class="memory-card" data-value="2">
+                <img class="card-front" src="images/memory-game/2.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="2">
+                <img class="card-front" src="images/memory-game/2.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
 
-                <div class="memory-card" data-value="2">
-                    <img class="card-front" src="images/memory-game/2.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="2">
-                    <img class="card-front" src="images/memory-game/2.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
+            <div class="memory-card" data-value="3">
+                <img class="card-front" src="images/memory-game/3.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="3">
+                <img class="card-front" src="images/memory-game/3.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
 
-                <div class="memory-card" data-value="3">
-                    <img class="card-front" src="images/memory-game/3.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="3">
-                    <img class="card-front" src="images/memory-game/3.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
+            <div class="memory-card" data-value="4">
+                <img class="card-front" src="images/memory-game/4.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="4">
+                <img class="card-front" src="images/memory-game/4.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
 
-                <div class="memory-card" data-value="4">
-                    <img class="card-front" src="images/memory-game/4.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="4">
-                    <img class="card-front" src="images/memory-game/4.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
+            <div class="memory-card" data-value="5">
+                <img class="card-front" src="images/memory-game/5.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="5">
+                <img class="card-front" src="images/memory-game/5.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
 
-                <div class="memory-card" data-value="5">
-                    <img class="card-front" src="images/memory-game/5.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="5">
-                    <img class="card-front" src="images/memory-game/5.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-
-                <div class="memory-card" data-value="6">
-                    <img class="card-front" src="images/memory-game/6.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
-                <div class="memory-card" data-value="6">
-                    <img class="card-front" src="images/memory-game/6.svg" alt="card-front" />
-                    <img class="card-back" src="images/memory-game/back.svg" alt="card-back" />
-                </div>
+            <div class="memory-card" data-value="6">
+                <img class="card-front" src="images/memory-game/6.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
+            </div>
+            <div class="memory-card" data-value="6">
+                <img class="card-front" src="images/memory-game/6.svg" alt="card-front"/>
+                <img class="card-back" src="images/memory-game/back.svg" alt="card-back"/>
             </div>
         </div>
-
     </div>
 
-    <footer>
-        <ul class="icons">
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Facebook</a></li>
-        </ul>
-        <div class="copyright">
-            &copy; Cytatuję 2020
-        </div>
-    </footer>
+</div>
 
-    <script src="javascripts/memory.js"></script>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="javascripts/memory.js"></script>
 </body>
 </html>
