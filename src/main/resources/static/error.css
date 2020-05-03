@@ -1,0 +1,25 @@
+.error {
+  opacity: 0;
+  transition: 0.6s;
+  pointer-events: none;
+  left: 0;
+  top: 100px;
+  width: 100%;
+  text-align: center;
+   opacity: 1;
+}
+
+.error h3 {
+  font-size: 40px;
+}
+
+@media (max-width: 640px) {
+  .error {
+    margin-top: 5vh;
+  }
+}
+@media (max-width: 480px) {
+  .error {
+    margin-top: 20vh;
+  }
+}

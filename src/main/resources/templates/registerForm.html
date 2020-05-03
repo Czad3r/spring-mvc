@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Cytatuję</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="layout.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="registerForm.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="nav">
+        <input type="checkbox" id="nav-check">
+        <div class="nav-header">
+            <a href="/">Cytatuję</a>
+        </div>
+        <div class="nav-btn">
+            <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </div>
+
+        <div class="nav-links">
+            <a href="/registerForm">Formularz rejestracyjny</a>
+            <a href="/contact" >Kontakt</a>
+            <a href="/quotesList" >Cytaty</a>
+            <a href="/memoryGame" >Gra memory</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <div class="register-form page">
+
+        					<div class="row">
+        						  <div class="section">
+        							<div class="form-header">
+        							  <h3>Zarejestruj się!</h3>
+        							  <h4>Wypełnij formularz zgodnie z podpowiedziami</h4>
+        							</div>
+        							<div class="form-main">
+        							  <form>
+        								<div class="form-item box-item">
+        								  <input type="text" name="name" class="tx1" placeholder="Nazwa użytkownika" data-required>
+        								  <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								</div>
+        								<div class="form-item box-item tooltip">
+        								  <input type="email" name="email" class="tx1" placeholder="Email" data-email data-required>
+        								  <span class="tooltiptext">Poprawny format to np. user@domain.com</span>
+        								  <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								  <small class="errorEmail"><i class="fa fa-asterisk" aria-hidden="true"></i> Niepoprawny format.</small>
+        								</div>
+        								<div class="form-item box-item tooltip">
+        								  <input type="password" name="password" class="tx1" placeholder="Hasło" data-required data-passwords>
+        								   <span class="tooltiptext">Długość co najmniej 6 znaków</span>
+        								  <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								  <small class="errorLength"><i class="fa fa-asterisk" aria-hidden="true"></i> Mniej niż 6 znaków.</small>
+        								  <small class="errorPasswords"><i class="fa fa-asterisk" aria-hidden="true"></i> Hasła nie zgadzają się.</small>
+        								</div>
+        								<div class="form-item box-item tooltip">
+        								  <input type="password" name="password2" class="tx1" placeholder="Powtórz hasło" data-required data-passwords>
+        								   <span class="tooltiptext">Długość co najmniej 6 znaków</span>
+        								  <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								  <small class="errorLength"><i class="fa fa-asterisk" aria-hidden="true"></i> Mniej niż 6 znaków.</small>
+        								</div>
+        								<div class="form-item box-item">
+        								  <div class="form-item-triple">
+        									<div class="radio-label">
+        									  <label class="label">Płeć</label>
+        									</div>
+        									<div class="form-item">
+        									  <input id="Male" type="radio" name="gender" value="Male" data-once>
+        									  <label for="Male">Mężczyzna</label>
+        									</div>
+        									<div class="form-item">
+        									  <input id="Female" type="radio" name="gender" value="Female" data-once>
+        									  <label for="Female">Kobieta</label>
+        									</div>
+        								  </div>
+        								  <small class="errorOnce"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								</div>
+        								<div class="form-item box-item tooltip">
+        								  <input type="text" name="phone" placeholder="Numer telefonu" data-required data-number data-count="9">
+        								  <span class="tooltiptext">Wprowadź bez znaków specjalnych, i bez numeru kierunkowego, np 123456789</span>
+        								  <small class="errorReq"><i class="fa fa-asterisk" aria-hidden="true"></i> Wymagane pole.</small>
+        								  <small class="errorNum"><i class="fa fa-asterisk" aria-hidden="true"></i>Musi składać się z cyfr.</small>
+        								  <small class="errorChar"><i class="fa fa-asterisk" aria-hidden="true"></i>Musi zawierać 9 cyfr.</small>
+        								</div>
+        								<div class="form-item submit-button">
+        								  <span id="submit" class="button">Submit</span>
+        								</div>
+        							  </form>
+        							</div>
+        						  </div>
+        					</div>
+
+        				</div>
+
+    </div>
+
+    <footer>
+        <ul class="icons">
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+        </ul>
+        <div class="copyright">
+            &copy; Cytatuję 2020
+        </div>
+    </footer>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="javascripts/validationForm.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.banner {
+  background-color: #ffc629;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  padding: 10em 4em 5em 4em;
+  margin: 0 0 0 0;
+  display: block;
+}
+
+.banner h1 {
+  font-size: 3em;
+  line-height: 1.45;
+  margin: 0 0 0.75em 0;
+}

@@ -1,0 +1,148 @@
+.register-form {
+  display: block;
+}
+
+.row {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.submit-button {
+  align-self: center;
+  margin-top: 15px;
+}
+
+.form-header,
+.form-main {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.form-header {
+  padding: 48px;
+}
+.form-header h3 {
+  color: black;
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.form-header h4 {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.section {
+  background-color: #ffc629;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px 10px 20px 10px;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 16px;
+}
+
+small {
+  display: none;
+  color: white;
+}
+
+small.errorOnce {
+  margin-top: 2px;
+}
+
+.tx1 {
+  margin-top: 10px;
+}
+
+.form-item input[type="text"],
+.form-item input[type="number"],
+.form-item input[type="password"],
+.form-item input[type="email"] {
+  display: block;
+  font-size: 16px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 8px 0;
+  appearance: none;
+  outline: none;
+}
+
+.form-item i {
+  font-size: 12px;
+  color: red;
+}
+
+.box-item {
+  height: 60px;
+  margin-bottom: 16px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100%;
+  background-color: #1c1c1c;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 85%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.registered {
+  opacity: 0;
+  transition: 0.6s;
+  pointer-events: none;
+  left: 0;
+  top: 100px;
+  width: 100%;
+  text-align: center;
+}
+
+.registered.visible {
+  opacity: 1;
+}
+
+.registered h3 {
+  font-size: 40px;
+}
+
+@media (max-width: 640px) {
+  .registered {
+    margin-top: 5vh;
+  }
+}
+@media (max-width: 480px) {
+  .registered {
+    margin-top: 20vh;
+  }
+}

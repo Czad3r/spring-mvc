@@ -1,0 +1,137 @@
+.all-quotes h3 {
+  opacity: 0;
+}
+
+.quotes-list {
+  list-style: none;
+  max-width: 1500px;
+  text-align: center;
+  padding: 0;
+  opacity: 0;
+  font-size: 0;
+  margin: auto;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.all-quotes,
+.all-quotes h3 {
+  display: block;
+  opacity: 1;
+  transition: 1s;
+  pointer-events: auto;
+}
+
+.all-quotes .quotes-list {
+  opacity: 1;
+  transition: 1s;
+  pointer-events: auto;
+}
+
+.quotes-list > li {
+  box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+  max-width: 400px;
+  font: normal 12px sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #dbe3e7;
+  border-radius: 3px;
+  box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.08);
+  margin: 7px 12px 7px 12px;
+  padding: 25px;
+}
+
+.quotes-list > li.hidden {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.quotes-list h2 {
+  display: block;
+  font-size: 18px;
+  overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.quotes-list h2 a {
+  text-decoration: none;
+  color: #2B2E31;
+}
+
+.quotes-list .quote-description {
+  margin-top: 20px;
+  color: #5d5d5d;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: normal;
+  margin-bottom: 20px;
+  list-style: none;
+  text-align: right;
+}
+
+.quotes-list .quote-description li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.quotes-list .quote-description li:first-child {
+  display: block;
+}
+
+.quotes-list .quote-description li span {
+  font-weight: bold;
+}
+
+.quotes-list button {
+  border-radius: 2px;
+  background-color: #87bae1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  border: 0;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  width: 95px;
+  height: 32px;
+}
+
+.quotes-list .highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.quotes-list > li:hover .highlight {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .all-quotes {
+    margin-top: 5em;
+  }
+
+  .quotes-list > li {
+    margin-top: 3em;
+    max-width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .all-quotes {
+    margin-top: 5em;
+  }
+
+  .quotes-list > li {
+    max-width: 100%;
+  }
