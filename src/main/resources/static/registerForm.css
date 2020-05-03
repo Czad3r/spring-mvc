@@ -119,17 +119,12 @@ small.errorOnce {
 }
 
 .registered {
-  opacity: 0;
   transition: 0.6s;
   pointer-events: none;
   left: 0;
   top: 100px;
   width: 100%;
   text-align: center;
-}
-
-.registered.visible {
-  opacity: 1;
 }
 
 .registered h3 {

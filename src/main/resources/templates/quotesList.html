@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cytatuję</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="layout.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="quotesList.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="layout.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/quotesList.css}"/>
 </head>
 <body>
 <div class="nav">
@@ -22,32 +22,26 @@
 
     <div class="nav-links">
         <a href="/registerForm">Formularz rejestracyjny</a>
-        <a href="/contact" >Kontakt</a>
-        <a href="/quotesList" >Cytaty</a>
-        <a href="/memoryGame" >Gra memory</a>
+        <a href="/contact">Kontakt</a>
+        <a href="/quotesList">Cytaty</a>
+        <a href="/memoryGame">Gra memory</a>
     </div>
 </div>
 
 <div class="main-content">
 
     <div class="all-quotes page">
-
         <ul class="quotes-list">
-            <script id="quotes-template">​
-							{{#each this}}
-								<li data-index="{{id}}">
-									<h2> {{content}} </h2>
-									<ul class="quote-description">
-										<li>{{author}}</li>
-										<li>{{source}} </li>
-									</ul>
-									<button>O autorze</button>
-									<div class="highlight"></div>
-								</li>
-							{{/each}}
-			</script>
+            <li data-index="{{id}}" th:each="quote : ${quotes}">
+                <h2 th:text="${quote.content}"></h2>
+                <ul class="quote-description">
+                    <li th:text="${quote.author}"></li>
+                    <li th:text="${quote.source}"></li>
+                </ul>
+                <button>O autorze</button>
+                <div class="highlight"></div>
+            </li>
         </ul>
-
     </div>
 
 </div>
