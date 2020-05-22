@@ -19,16 +19,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/registerForm")
-    public String registerForm() {
-        return "registerForm";
-    }
-
-
-    @GetMapping("/registered")
-    public String registered() {
-        return "registered";
-    }
 
     @GetMapping("/quotesList")
     public String quotesList(Model model) {
