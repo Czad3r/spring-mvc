@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 <nav th:fragment="header">
     <div class="nav">
@@ -16,12 +17,16 @@
         </div>
 
         <div class="nav-links">
-            <a href="/registerForm">Formularz rejestracyjny</a>
+            <a sec:authorize="!isAuthenticated()" href="/login">Zaloguj się</a>
+            <a sec:authorize="isAuthenticated()" href="/logout">Wyloguj się</a>
+            <a sec:authorize="!isAuthenticated()" href="/register">Zarejestruj się</a>
             <a href="/contact">Kontakt</a>
             <a href="/quotesList">Cytaty</a>
             <a href="/memoryGame">Gra memory</a>
             <a href="/downloadSource">Pobierz kod</a>
         </div>
+        <div sec:authorize="isAuthenticated()">
+            Zalogowany jako <span sec:authentication="name"></span></div>
     </div>
 </nav>
 
