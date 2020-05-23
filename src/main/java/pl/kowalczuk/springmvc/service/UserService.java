@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.kowalczuk.springmvc.domain.entities.Privilege;
 import pl.kowalczuk.springmvc.domain.entities.Role;
 import pl.kowalczuk.springmvc.domain.entities.User;
-import pl.kowalczuk.springmvc.domain.exceptions.UserAlreadyExistException;
+import pl.kowalczuk.springmvc.domain.exceptions.EmailAlreadyExistException;
+import pl.kowalczuk.springmvc.domain.exceptions.UsernameAlreadyExistException;
 import pl.kowalczuk.springmvc.domain.forms.RegisterForm;
 import pl.kowalczuk.springmvc.repository.PrivilegeRepository;
 import pl.kowalczuk.springmvc.repository.RoleRepository;
@@ -51,10 +52,14 @@ public class UserService implements UserDetailsService {
                     true, getAuthorities(user.getRoles()));
     }
 
-    public User registerNewUserAccount(RegisterForm registerForm) throws UserAlreadyExistException {
+    public User registerNewUserAccount(RegisterForm registerForm) throws EmailAlreadyExistException, UsernameAlreadyExistException {
 
         if (emailExist(registerForm.getEmail())) {
-            throw new UserAlreadyExistException("Istnieje użytkownik z podanym emailem: " + registerForm.getEmail());
+            throw new EmailAlreadyExistException("Istnieje użytkownik z podanym emailem: " + registerForm.getEmail());
+        }
+
+        if (usernameExist(registerForm.getUsername())) {
+            throw new UsernameAlreadyExistException("Istnieje użytkownik z podaną nazwą użytkownika: " + registerForm.getUsername());
         }
 
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
@@ -77,12 +82,20 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public org.springframework.security.core.userdetails.User userToPrincipal(User user) {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user.getRoles()));
     }
 
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email) != null;
+    }
+
+    private boolean usernameExist(String username) {
+        return userRepository.findByUsername(username) != null;
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
@@ -132,5 +145,12 @@ public class UserService implements UserDetailsService {
             roleRepository.save(role);
         }
         return role;
+    }
+
+
+
+    public void changeUserPassword(User user, String password) {
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
     }
 }

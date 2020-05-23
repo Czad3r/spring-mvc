@@ -25,29 +25,29 @@
                         <div class="form-item box-item">
                             <input type="text" name="name" class="tx1" th:field="*{username}"
                                    placeholder="Nazwa użytkownika">
-                            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
                         </div>
                         <div class="form-item box-item tooltip">
                             <input type="email" name="email" class="tx1" th:field="*{email}" placeholder="Email">
                             <span class="tooltiptext">Poprawny format to np. user@domain.com</span>
-                            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
                         </div>
                         <div class="form-item box-item tooltip">
                             <input type="password" name="password" class="tx1" th:field="*{password}"
                                    placeholder="Hasło">
                             <span class="tooltiptext">Długość co najmniej 6 znaków</span>
-                            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
                         </div>
                         <div class="form-item box-item tooltip">
                             <input type="password" name="password2" class="tx1" th:field="*{password2}"
                                    placeholder="Powtórz hasło">
                             <span class="tooltiptext">Długość co najmniej 6 znaków</span>
-                            <td th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/>
                         </div>
                         <div class="form-item box-item tooltip">
                             <input type="text" name="phone" th:field="*{phone}" placeholder="Numer telefonu">
                             <span class="tooltiptext">Wprowadź bez znaków specjalnych, i bez numeru kierunkowego, np 123456789</span>
-                            <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"/>
                         </div>
                         <div class="form-item box-item">
                             <div class="form-item-triple">
@@ -61,43 +61,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"/>
                         </div>
 
-                        <div class="form-item box-item">
+                        <div class="form-item" style="margin-bottom: 16px">
                             <label class="label">Kraj</label>
                             <select th:field="*{country}">
                                 <option th:each="country : ${countryList}"
                                         th:value="${country}"
                                         th:text="${country}"/>
                             </select>
-                            <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"/>
                         </div>
 
                         <div class="form-item box-item">
                             <input type="text" name="city" th:field="*{city}" placeholder="Miejscowość">
-                            <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/>
                         </div>
 
                         <div class="form-item box-item tooltip">
                             <input type="text" name="postalCode" th:field="*{postalCode}" placeholder="Kod pocztowy">
                             <span class="tooltiptext">Format: NN-NNN / NNNNN / NNNN / NNN / NNNN AA, N - cyfra, A - litera</span>
-                            <td th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"/>
                         </div>
 
                         <div class="form-item box-item">
                             <input type="text" name="street" th:field="*{street}" placeholder="Ulica">
-                            <td th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/>
                         </div>
 
                         <div class="form-item box-item">
                             <input type="number" name="streetNo" th:field="*{streetNo}" placeholder="Numer domu">
-                            <td th:if="${#fields.hasErrors('streetNo')}" th:errors="*{streetNo}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('streetNo')}" th:errors="*{streetNo}"/>
                         </div>
 
                         <div class="form-item box-item">
                             <input type="number" name="streetNo2" th:field="*{streetNo2}" placeholder="Numer mieszkania">
-                            <td th:if="${#fields.hasErrors('streetNo2')}" th:errors="*{streetNo2}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('streetNo2')}" th:errors="*{streetNo2}"/>
                         </div>
 
                         <div class="form-item submit-button">

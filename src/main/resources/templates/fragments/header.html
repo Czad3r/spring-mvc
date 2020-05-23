@@ -18,16 +18,21 @@
 
         <div class="nav-links">
             <a sec:authorize="!isAuthenticated()" href="/login">Zaloguj się</a>
-            <a sec:authorize="isAuthenticated()" href="/logout">Wyloguj się</a>
+            <a sec:authorize="isAuthenticated()" onclick="document.getElementById('logoutForm').submit();">Wyloguj
+                się</a>
             <a sec:authorize="!isAuthenticated()" href="/register">Zarejestruj się</a>
             <a href="/contact">Kontakt</a>
             <a href="/quotesList">Cytaty</a>
             <a href="/memoryGame">Gra memory</a>
             <a href="/downloadSource">Pobierz kod</a>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            Zalogowany jako <span sec:authentication="name"></span></div>
     </div>
+    <div sec:authorize="isAuthenticated()">
+        <button style="font-size:24px">
+            <span sec:authentication="name"></span>
+            <i class="fa fa-edit"></i></button>
+    </div>
+    <form id="logoutForm" action="#" th:action="@{/logout}" method="post"></form>
 </nav>
 
 </body>

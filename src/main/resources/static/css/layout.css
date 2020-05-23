@@ -201,3 +201,16 @@ h1, h3 {
   background-color: #656565;
   color: white;
 }
+
+
+.message h3 {
+  text-align: center
+}
+
+.text-center{
+  text-align: center
+}
+
+.error-message{
+  color:red;
+}

@@ -13,22 +13,36 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.kowalczuk.springmvc.domain.entities.User;
-import pl.kowalczuk.springmvc.domain.exceptions.UserAlreadyExistException;
+import pl.kowalczuk.springmvc.domain.exceptions.EmailAlreadyExistException;
+import pl.kowalczuk.springmvc.domain.exceptions.UserNotFoundException;
+import pl.kowalczuk.springmvc.domain.exceptions.UsernameAlreadyExistException;
 import pl.kowalczuk.springmvc.domain.forms.LoginForm;
+import pl.kowalczuk.springmvc.domain.forms.PasswordRecoverForm;
 import pl.kowalczuk.springmvc.domain.forms.RegisterForm;
+import pl.kowalczuk.springmvc.service.MailService;
+import pl.kowalczuk.springmvc.service.PasswordService;
 import pl.kowalczuk.springmvc.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.MalformedURLException;
 import java.util.List;
+import java.util.UUID;
 
-import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.COUNTRIES;
-import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.GENDERS;
+import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.*;
+import static pl.kowalczuk.springmvc.utils.Utils.getURLBase;
 
 @Controller
 public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailSender;
+
+    @Autowired
+    private PasswordService passwordService;
 
     @ModelAttribute("genderList")
     public List<String> genderList() {
@@ -40,10 +54,6 @@ public class AuthController {
         return COUNTRIES;
     }
 
-    @ModelAttribute("loginError")
-    public String loginError() {
-        return "Nieprawidłowa nazwa użytkownika lub hasło!";
-    }
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -69,14 +79,13 @@ public class AuthController {
                     = new UsernamePasswordAuthenticationToken(userService.userToPrincipal(registered),
                     registerForm.getPassword());
             SecurityContextHolder.getContext().setAuthentication(authReq);
-//            SecurityContext sc = SecurityContextHolder.getContext();
-//            sc.setAuthentication(authReq);
-//            HttpSession session = req.getSession(true);
-//            session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
 
             model.addAttribute("isRegistered", true);
-        } catch (UserAlreadyExistException e) {
+        } catch (EmailAlreadyExistException e) {
             bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", e.getMessage()));
+            return "auth/register";
+        } catch (UsernameAlreadyExistException e) {
+            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "username", e.getMessage()));
             return "auth/register";
         }
 
@@ -84,30 +93,60 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error, String message) {
         if (isCurrentAuthenticated()) {
             return "redirect:/";
         } else {
-            if (error != null) model.addAttribute("error", true);
+            if (error != null) {
+                model.addAttribute("error", error.equals("") ? USERNAME_OR_PASSWORD_ERROR_MESSAGE : error);
+            }
+            if (message != null) {
+                model.addAttribute("message", message);
+            }
             model.addAttribute("loginForm", new LoginForm());
             return "auth/login";
         }
     }
 
-//    @GetMapping("/logout")
-//    public String logout() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null) {
-//            SecurityContextHolder.getContext().setAuthentication(null);
-//        }
-//        return "redirect:/login";
-//    }
-
-    @GetMapping("/forgetPassword")
-    public String forgetPassword() {
-        return "auth/forgetPassword";
+    @GetMapping("/passwordRecover")
+    public String passwordRecover(Model model) {
+        if (isCurrentAuthenticated()) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("passwordRecoverForm", new PasswordRecoverForm());
+            return "auth/passwordRecover";
+        }
     }
 
+    @PostMapping("/passwordRecover")
+    public String passwordRecover(@Valid PasswordRecoverForm passwordRecoverForm, BindingResult bindingResult, Model model,
+                                  HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            return "auth/passwordRecover";
+        }
+
+        try {
+            User user = userService.findUserByEmail(passwordRecoverForm.getEmail());
+
+            if (user == null) {
+                throw new UserNotFoundException("Nie znaleziono użytkownika z podanym emailem!");
+            }
+            String token = UUID.randomUUID().toString();
+            passwordService.createPasswordResetTokenForUser(user, token);
+
+            mailSender.sendMail(passwordService.constructResetTokenEmail(getURLBase(request), token, user));
+
+            model.addAttribute("isSended", true);
+        } catch (UserNotFoundException e) {
+            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", e.getMessage()));
+            return "auth/passwordRecover";
+        } catch (MalformedURLException e) {
+            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", "Usługa wysyłania emaili chwilowo nie działa."));
+            return "auth/passwordRecover";
+        }
+
+        return "auth/passwordRecover";
+    }
 
     private String getPrincipal() {
         String userName = null;
