@@ -28,9 +28,9 @@
         </div>
     </div>
     <div sec:authorize="isAuthenticated()">
-        <button style="font-size:24px">
+        <a class="user-edit-button" href="/user/editProfile">
             <span sec:authentication="name"></span>
-            <i class="fa fa-edit"></i></button>
+            <i class="fa fa-edit"></i></a>
     </div>
     <form id="logoutForm" action="#" th:action="@{/logout}" method="post"></form>
 </nav>

@@ -1,6 +1,7 @@
 package pl.kowalczuk.springmvc.validators;
 
 import pl.kowalczuk.springmvc.domain.annotations.PasswordMatches;
+import pl.kowalczuk.springmvc.domain.forms.PasswordForm;
 import pl.kowalczuk.springmvc.domain.forms.PasswordWithTokenForm;
 import pl.kowalczuk.springmvc.domain.forms.RegisterForm;
 
@@ -20,6 +21,9 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         } else if (obj instanceof PasswordWithTokenForm) {
             PasswordWithTokenForm passwordWithTokenForm = (PasswordWithTokenForm) obj;
             return passwordWithTokenForm.getPassword().equals(passwordWithTokenForm.getPassword2());
+        }else if (obj instanceof PasswordForm) {
+            PasswordForm passwordForm = (PasswordForm) obj;
+            return passwordForm.getPassword().equals(passwordForm.getPassword2());
         } else {
             System.out.println("Nie można użyć PasswordMatchesValidator dla " + obj.toString() + ". Przedefiniuj implementację validatora!");
             return false;

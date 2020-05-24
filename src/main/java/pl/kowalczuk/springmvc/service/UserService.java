@@ -14,6 +14,8 @@ import pl.kowalczuk.springmvc.domain.entities.Role;
 import pl.kowalczuk.springmvc.domain.entities.User;
 import pl.kowalczuk.springmvc.domain.exceptions.EmailAlreadyExistException;
 import pl.kowalczuk.springmvc.domain.exceptions.UsernameAlreadyExistException;
+import pl.kowalczuk.springmvc.domain.forms.EditProfileForm;
+import pl.kowalczuk.springmvc.domain.forms.PasswordForm;
 import pl.kowalczuk.springmvc.domain.forms.RegisterForm;
 import pl.kowalczuk.springmvc.repository.PrivilegeRepository;
 import pl.kowalczuk.springmvc.repository.RoleRepository;
@@ -39,6 +41,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SecurityContextService securityContext;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -84,10 +89,6 @@ public class UserService implements UserDetailsService {
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    public org.springframework.security.core.userdetails.User userToPrincipal(User user) {
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user.getRoles()));
     }
 
     private boolean emailExist(String email) {
@@ -148,9 +149,54 @@ public class UserService implements UserDetailsService {
     }
 
 
-
     public void changeUserPassword(User user, String password) {
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
+    }
+
+    public User updateUserAccount(EditProfileForm registerForm) throws EmailAlreadyExistException, UsernameAlreadyExistException, UsernameNotFoundException {
+        User currentUser = userRepository.findByUsername(securityContext.getPrincipal().getUsername());
+
+        if ((!currentUser.getEmail().equals(registerForm.getEmail()) && emailExist(registerForm.getEmail()))) {
+            throw new EmailAlreadyExistException("Istnieje użytkownik z podanym emailem: " + registerForm.getEmail());
+        }
+
+        if ((!currentUser.getUsername().equals(registerForm.getUsername()) && usernameExist(registerForm.getUsername()))) {
+            throw new UsernameAlreadyExistException("Istnieje użytkownik z podaną nazwą użytkownika: " + registerForm.getUsername());
+        }
+
+        String username = securityContext.getPrincipal().getUsername();
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("Nie istnieje użytkownik z loginem: " + username + ". Spróbuj zalogować się ponownie.");
+        } else {
+            user.setUsername(registerForm.getUsername());
+            user.setCity(registerForm.getCity());
+            user.setCountry(registerForm.getCountry());
+            user.setGender(registerForm.getGender());
+            user.setPhone(registerForm.getPhone());
+            user.setPostalCode(registerForm.getPostalCode());
+            user.setStreetNo(registerForm.getStreetNo());
+            user.setStreetNo2(registerForm.getStreetNo2());
+            user.setEmail(registerForm.getEmail());
+            user.setStreet(registerForm.getStreet());
+            return userRepository.save(user);
+        }
+    }
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User updateUserPassword(PasswordForm form) {
+        String username = securityContext.getPrincipal().getUsername();
+        User user = userRepository.findByUsername(username);
+        user.setPassword(passwordEncoder.encode(form.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public User getCurrentUser() {
+        return userRepository.findByUsername(securityContext.getPrincipal().getUsername());
     }
 }

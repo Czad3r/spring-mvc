@@ -21,6 +21,7 @@ import pl.kowalczuk.springmvc.domain.forms.PasswordRecoverForm;
 import pl.kowalczuk.springmvc.domain.forms.RegisterForm;
 import pl.kowalczuk.springmvc.service.MailService;
 import pl.kowalczuk.springmvc.service.PasswordService;
+import pl.kowalczuk.springmvc.service.SecurityContextService;
 import pl.kowalczuk.springmvc.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,9 @@ public class AuthController {
     @Autowired
     private PasswordService passwordService;
 
+    @Autowired
+    private SecurityContextService securityContext;
+
     @ModelAttribute("genderList")
     public List<String> genderList() {
         return GENDERS;
@@ -57,7 +61,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        if (isCurrentAuthenticated()) {
+        if (securityContext.isCurrentAuthenticated()) {
             return "redirect:/";
         } else {
             model.addAttribute("registerForm", new RegisterForm());
@@ -75,10 +79,7 @@ public class AuthController {
         try {
             User registered = userService.registerNewUserAccount(registerForm);
 
-            UsernamePasswordAuthenticationToken authReq
-                    = new UsernamePasswordAuthenticationToken(userService.userToPrincipal(registered),
-                    registerForm.getPassword());
-            SecurityContextHolder.getContext().setAuthentication(authReq);
+            securityContext.setAuthentication(userService.loadUserByUsername(registered.getUsername()));
 
             model.addAttribute("isRegistered", true);
         } catch (EmailAlreadyExistException e) {
@@ -94,7 +95,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Model model, String error, String message) {
-        if (isCurrentAuthenticated()) {
+        if (securityContext.isCurrentAuthenticated()) {
             return "redirect:/";
         } else {
             if (error != null) {
@@ -110,7 +111,7 @@ public class AuthController {
 
     @GetMapping("/passwordRecover")
     public String passwordRecover(Model model) {
-        if (isCurrentAuthenticated()) {
+        if (securityContext.isCurrentAuthenticated()) {
             return "redirect:/";
         } else {
             model.addAttribute("passwordRecoverForm", new PasswordRecoverForm());
@@ -146,26 +147,5 @@ public class AuthController {
         }
 
         return "auth/passwordRecover";
-    }
-
-    private String getPrincipal() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
-
-    private boolean isCurrentAuthenticated() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof org.springframework.security.core.userdetails.User) {
-            return ((org.springframework.security.core.userdetails.User) principal).isEnabled();
-        } else
-            return false;
     }
 }

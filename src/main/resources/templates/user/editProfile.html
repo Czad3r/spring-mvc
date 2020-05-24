@@ -15,39 +15,26 @@
 
     <div class="register-form page">
 
-        <div th:unless="${isRegistered}" class="row">
+        <div class="row">
             <div class="section">
                 <div class="form-header">
-                    <h3>Zarejestruj się!</h3>
-                    <h4>Wypełnij formularz zgodnie z podpowiedziami</h4>
+                    <h3>Twoje dane</h3>
                 </div>
+                <span class="text-center" th:if="${message}" th:text="${message}"></span>
                 <div class="form-main">
-                    <form action="#" th:action="@{/register}" th:object="${registerForm}" method="post">
+                    <form action="#" th:action="@{/user/editProfile}" th:object="${editProfileForm}" method="post">
                         <div class="form-item box-item">
-                            <input type="text" name="name" class="tx1" th:field="*{username}"
+                            <input type="text" th:name="username" class="tx1" th:value="*{username}"
                                    placeholder="Nazwa użytkownika">
                             <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
                         </div>
                         <div class="form-item box-item tooltip">
-                            <input type="email" name="email" class="tx1" th:field="*{email}" placeholder="Email">
+                            <input type="email" th:name="email" class="tx1" th:field="*{email}" placeholder="Email">
                             <span class="tooltiptext">Poprawny format to np. user@domain.com</span>
                             <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
                         </div>
                         <div class="form-item box-item tooltip">
-                            <input type="password" name="password" class="tx1" th:field="*{password}"
-                                   placeholder="Hasło">
-                            <span class="tooltiptext">Długość co najmniej 6 znaków</span>
-                            <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
-                        </div>
-                        <div class="form-item box-item tooltip">
-                            <input type="password" name="password2" class="tx1" th:field="*{password2}"
-                                   placeholder="Powtórz hasło">
-                            <span class="tooltiptext">Długość co najmniej 6 znaków</span>
-                            <span class="error-message" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/>
-                            <span class="error-message" th:if="${#fields.hasErrors('${registerForm}')}" th:errors="${registerForm}"/>
-                        </div>
-                        <div class="form-item box-item tooltip">
-                            <input type="text" name="phone" th:field="*{phone}" placeholder="Numer telefonu">
+                            <input type="text" th:name="phone" th:field="*{phone}" placeholder="Numer telefonu">
                             <span class="tooltiptext">Wprowadź bez znaków specjalnych, i bez numeru kierunkowego, np 123456789</span>
                             <span class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"/>
                         </div>
@@ -63,55 +50,55 @@
                                     </div>
                                 </div>
                             </div>
-                            <span class="error-message" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
                         </div>
 
                         <div class="form-item" style="margin-bottom: 16px">
                             <label class="label">Kraj</label>
-                            <select th:field="*{country}">
-                                <option th:each="country : ${countryList}"
-                                        th:value="${country}"
-                                        th:text="${country}"/>
+                            <select th:name="country">
+                                <option th:each="element : ${countryList}"
+                                        th:value="${element}"
+                                        th:text="${element}"
+                                        th:selected="${editProfileForm.country.equals(element)}"/>
                             </select>
                             <span class="error-message" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"/>
                         </div>
 
                         <div class="form-item box-item">
-                            <input type="text" name="city" th:field="*{city}" placeholder="Miejscowość">
+                            <input type="text" th:name="city" th:value="*{city}" placeholder="Miejscowość">
                             <span class="error-message" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/>
                         </div>
 
                         <div class="form-item box-item tooltip">
-                            <input type="text" name="postalCode" th:field="*{postalCode}" placeholder="Kod pocztowy">
+                            <input type="text" th:name="postalCode" th:value="*{postalCode}" placeholder="Kod pocztowy">
                             <span class="tooltiptext">Format: NN-NNN / NNNNN / NNNN / NNN / NNNN AA, N - cyfra, A - litera</span>
                             <span class="error-message" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"/>
                         </div>
 
                         <div class="form-item box-item">
-                            <input type="text" name="street" th:field="*{street}" placeholder="Ulica">
+                            <input type="text" th:name="street" th:value="*{street}" placeholder="Ulica">
                             <span class="error-message" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/>
                         </div>
 
                         <div class="form-item box-item">
-                            <input type="number" name="streetNo" th:field="*{streetNo}" placeholder="Numer domu">
+                            <input type="number" th:name="streetNo" th:value="*{streetNo}" placeholder="Numer domu">
                             <span class="error-message" th:if="${#fields.hasErrors('streetNo')}" th:errors="*{streetNo}"/>
                         </div>
 
                         <div class="form-item box-item">
-                            <input type="number" name="streetNo2" th:field="*{streetNo2}" placeholder="Numer mieszkania">
+                            <input type="number" th:name="streetNo2" th:value="*{streetNo2}" placeholder="Numer mieszkania">
                             <span class="error-message" th:if="${#fields.hasErrors('streetNo2')}" th:errors="*{streetNo2}"/>
                         </div>
 
                         <div class="form-item submit-button">
-                            <input type="submit" class="button" value="Zatwierdz"/>
-                            <input type="reset" class="button" value="Wyczysc"/>
+                            <input type="submit" class="button" value="Aktualizuj"/>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div th:if="${isRegistered}" class="registered page">
-            <h3>Gratulacje, poprawnie się zarejestrowano!</h3>
+        <div class="row">
+            <a class="button" href="/user/editPassword">Zmien haslo</a>
         </div>
 
     </div>
