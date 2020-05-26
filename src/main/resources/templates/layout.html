@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Cytatuję</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" th:href="@{css/layout.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <th:block layout:fragment="style"></th:block>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">
+</div>
+
+<div class="main-content">
+    <div layout:fragment="content">
+
+    </div>
+</div>
+
+<div th:replace=" fragments/footer :: footer">
+</div>
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>
+
+
+

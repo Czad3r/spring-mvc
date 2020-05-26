@@ -1,20 +1,15 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <title>Cytatuję</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
-    <link rel="stylesheet" th:href="@{/css/registerForm.css}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <th:block layout:fragment="style">
+        <link rel="stylesheet" th:href="@{/css/registerForm.css}"/>
+    </th:block>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
 
-<div class="main-content">
-
+<div layout:fragment="content">
     <div class="register-form page">
-
         <div class="row">
             <div class="section">
                 <div class="form-header">
@@ -26,32 +21,31 @@
                         <div class="form-item box-item">
                             <input type="text" name="username" class="tx1" th:field="*{username}"
                                    placeholder="Nazwa użytkownika">
-                            <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('username')}"
+                                  th:errors="*{username}"/>
                         </div>
 
                         <div class="form-item box-item tooltip">
                             <input type="password" name="password" class="tx1" th:field="*{password}"
                                    placeholder="Hasło">
                             <span class="tooltiptext">Długość co najmniej 6 znaków</span>
-                            <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                            <span class="error-message" th:if="${#fields.hasErrors('password')}"
+                                  th:errors="*{password}"/>
                         </div>
                         <span class="text-center error-message" th:if="${error}!=null" th:text="${error}"/>
 
                         <div class="form-item submit-button">
                             <input type="submit" class="button" value="Zaloguj"/>
                             <input type="reset" class="button" value="Wyczyść"/>
-                            <input type="button" class="button" value="Odzyskaj hasło" onclick="location.href='/passwordRecover'"/>
+                            <input type="button" class="button" value="Odzyskaj hasło"
+                                   onclick="location.href='/passwordRecover'"/>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
-
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
