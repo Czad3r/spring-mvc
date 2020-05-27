@@ -104,7 +104,7 @@ public class UserController {
             User user = userService.updateUserPassword(form);
 
             securityContext.setAuthentication(userService.loadUserByUsername(user.getUsername()));
-            model.addAttribute("message", "Pomyślnie zmieniono hasło!");
+            model.addAttribute("message", PASSWORD_EDIT_SUCCESS_MESSAGE);
             return "user/editPassword";
         } catch (Exception e) {
             bindingResult.addError(new FieldError(bindingResult.getObjectName(), "password2", e.getMessage()));
@@ -152,7 +152,7 @@ public class UserController {
             User user = userService.updateUserAccount(form);
 
             securityContext.setAuthentication(userService.loadUserByUsername(user.getUsername()));
-            model.addAttribute("message", "Pomyślnie zaaktualizowano dane!");
+            model.addAttribute("message", PROFILE_EDIT_SUCCESS_MESSAGE);
             return "user/editProfile";
         } catch (EmailAlreadyExistException e) {
             bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", e.getMessage()));

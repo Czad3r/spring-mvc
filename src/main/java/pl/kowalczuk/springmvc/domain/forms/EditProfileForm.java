@@ -6,7 +6,7 @@ import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.*;
 
 public class EditProfileForm {
 
-    @Size(min = 5, max = 30, message = "Pole musi mieć od 5 do 30 znaków!")
+    @Size(min = 5, max = 30, message = FIELD_5_30_ERROR_MESSAGE)
     private String username;
 
     @NotEmpty(message = EMPTY_ERROR_MESSAGE)

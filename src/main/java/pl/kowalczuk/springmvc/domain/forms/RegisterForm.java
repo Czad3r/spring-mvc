@@ -9,17 +9,17 @@ import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.*;
 @PasswordMatches
 public class RegisterForm {
 
-    @Size(min = 5, max = 30, message = "Pole musi mieć od 5 do 30 znaków!")
+    @Size(min = 5, max = 30, message = FIELD_5_30_ERROR_MESSAGE)
     private String username;
 
     @NotEmpty(message = EMPTY_ERROR_MESSAGE)
     @Email
     private String email;
 
-    @Size(min = 6, max = 30, message = "Pole musi mieć od 6 do 30 znaków!")
+    @Size(min = 6, max = 30, message = FIELD_6_30_ERROR_MESSAGE)
     private String password;
 
-    @Size(min = 6, max = 30, message = "Pole musi mieć od 6 do 30 znaków!")
+    @Size(min = 6, max = 30, message = FIELD_6_30_ERROR_MESSAGE)
     private String password2;
 
     @Pattern(regexp = "^[0-9]{9}$", message = EMPTY_OR_INVALID_FORMAT_ERROR_MESSAGE)

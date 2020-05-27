@@ -26,6 +26,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.EMAIL_EXIST_ERROR_MESSAGE;
+import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.USERNAME_EXIST_ERROR_MESSAGE;
+import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.USERNAME_NOT_EXIST_ERROR_MESSAGE;
+
 @Service
 @Transactional
 public class UserService implements UserDetailsService {
@@ -50,7 +54,7 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Nie istnieje użytkownik z loginem: " + username);
+            throw new UsernameNotFoundException(USERNAME_NOT_EXIST_ERROR_MESSAGE);
         } else
             return new org.springframework.security.core.userdetails.User(
                     user.getUsername(), user.getPassword(), true, true, true,
@@ -60,11 +64,11 @@ public class UserService implements UserDetailsService {
     public User registerNewUserAccount(RegisterForm registerForm) throws EmailAlreadyExistException, UsernameAlreadyExistException {
 
         if (emailExist(registerForm.getEmail())) {
-            throw new EmailAlreadyExistException("Istnieje użytkownik z podanym emailem: " + registerForm.getEmail());
+            throw new EmailAlreadyExistException(EMAIL_EXIST_ERROR_MESSAGE);
         }
 
         if (usernameExist(registerForm.getUsername())) {
-            throw new UsernameAlreadyExistException("Istnieje użytkownik z podaną nazwą użytkownika: " + registerForm.getUsername());
+            throw new UsernameAlreadyExistException(USERNAME_EXIST_ERROR_MESSAGE);
         }
 
         Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
@@ -158,18 +162,18 @@ public class UserService implements UserDetailsService {
         User currentUser = userRepository.findByUsername(securityContext.getPrincipal().getUsername());
 
         if ((!currentUser.getEmail().equals(registerForm.getEmail()) && emailExist(registerForm.getEmail()))) {
-            throw new EmailAlreadyExistException("Istnieje użytkownik z podanym emailem: " + registerForm.getEmail());
+            throw new EmailAlreadyExistException(EMAIL_EXIST_ERROR_MESSAGE + registerForm.getEmail());
         }
 
         if ((!currentUser.getUsername().equals(registerForm.getUsername()) && usernameExist(registerForm.getUsername()))) {
-            throw new UsernameAlreadyExistException("Istnieje użytkownik z podaną nazwą użytkownika: " + registerForm.getUsername());
+            throw new UsernameAlreadyExistException(USERNAME_EXIST_ERROR_MESSAGE + registerForm.getUsername());
         }
 
         String username = securityContext.getPrincipal().getUsername();
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Nie istnieje użytkownik z loginem: " + username + ". Spróbuj zalogować się ponownie.");
+            throw new UsernameNotFoundException(USERNAME_NOT_EXIST_ERROR_MESSAGE);
         } else {
             user.setUsername(registerForm.getUsername());
             user.setCity(registerForm.getCity());

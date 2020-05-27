@@ -2,14 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <th:block layout:fragment="style">
         <link rel="stylesheet" th:href="@{/css/error.css}"/>
-    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="error page">
-        <h3>Zabłądziłeś, może wróć na główną stronę?</h3>
+        <h3 th:text="#{error.message}"></h3>
     </div>
 </div>
 </body>

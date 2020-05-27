@@ -49,7 +49,7 @@ public class PasswordService {
     public SimpleMailMessage constructResetTokenEmail(String contextPath, String token, User user) {
         String url = contextPath + "/user/changePassword?token=" + token;
 
-        return constructEmail("Resetowanie hasła - Cytatuje", "Link ważny 24h:" + " \r\n" + url, user);
+        return constructEmail("Resetowanie hasła / Password Recovery - Cytatuje", "Link ważny 24h:" + " \r\n" + url, user);
     }
 
     private SimpleMailMessage constructEmail(String subject, String body,

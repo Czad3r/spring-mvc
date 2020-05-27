@@ -130,7 +130,7 @@ public class AuthController {
             User user = userService.findUserByEmail(passwordRecoverForm.getEmail());
 
             if (user == null) {
-                throw new UserNotFoundException("Nie znaleziono użytkownika z podanym emailem!");
+                throw new UserNotFoundException(EMAIL_NOT_EXIST_ERROR_MESSAGE);
             }
             String token = UUID.randomUUID().toString();
             passwordService.createPasswordResetTokenForUser(user, token);
@@ -142,7 +142,7 @@ public class AuthController {
             bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", e.getMessage()));
             return "auth/passwordRecover";
         } catch (MalformedURLException e) {
-            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", "Usługa wysyłania emaili chwilowo nie działa."));
+            bindingResult.addError(new FieldError(bindingResult.getObjectName(), "email", EMAIL_SERVICE_ERROR_MESSAGE));
             return "auth/passwordRecover";
         }
 

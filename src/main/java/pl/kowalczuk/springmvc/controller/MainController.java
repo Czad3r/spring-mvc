@@ -13,12 +13,10 @@ public class MainController {
     @Autowired
     private QuoteRepository quoteRepository;
 
-
     @GetMapping("/")
     public String index() {
         return "index";
     }
-
 
     @GetMapping("/quotesList")
     public String quotesList(Model model) {
@@ -30,7 +28,6 @@ public class MainController {
     public String memoryGame() {
         return "memoryGame";
     }
-
 
     @GetMapping("/downloadSource")
     public RedirectView downloadSource() {

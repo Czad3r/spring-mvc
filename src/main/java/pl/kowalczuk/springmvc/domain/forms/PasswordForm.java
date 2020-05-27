@@ -2,16 +2,17 @@ package pl.kowalczuk.springmvc.domain.forms;
 
 import pl.kowalczuk.springmvc.domain.annotations.PasswordMatches;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import static pl.kowalczuk.springmvc.domain.constants.FormsConstants.FIELD_6_30_ERROR_MESSAGE;
 
 @PasswordMatches
 public class PasswordForm {
 
-    @Size(min = 6, max = 30, message = "Pole musi mieć od 6 do 30 znaków!")
+    @Size(min = 6, max = 30, message = FIELD_6_30_ERROR_MESSAGE)
     private String password;
 
-    @Size(min = 6, max = 30, message = "Pole musi mieć od 6 do 30 znaków!")
+    @Size(min = 6, max = 30, message = FIELD_6_30_ERROR_MESSAGE)
     private String password2;
 
     public String getPassword() {

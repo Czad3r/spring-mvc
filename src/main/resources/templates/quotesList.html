@@ -2,9 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <th:block layout:fragment="style">
         <link rel="stylesheet" th:href="@{/css/quotesList.css}"/>
-    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
@@ -16,7 +14,7 @@
                     <li th:text="${quote.author}"></li>
                     <li th:text="${quote.source}"></li>
                 </ul>
-                <button>O autorze</button>
+                <button th:text="#{quotes.aboutAuthor}"></button>
                 <div class="highlight"></div>
             </li>
         </ul>
