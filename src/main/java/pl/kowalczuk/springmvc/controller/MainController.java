@@ -29,6 +29,11 @@ public class MainController {
         return "memoryGame";
     }
 
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
+
     @GetMapping("/downloadSource")
     public RedirectView downloadSource() {
         RedirectView redirectView = new RedirectView();

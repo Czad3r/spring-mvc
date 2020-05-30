@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/contact.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page contact">
+        <h1><strong th:text="#{contact.title}"></strong></h1>
+        <br>
+        <h3 th:text="#{contact.email}"></h3>
+        <p th:text="#{contact.responseInfo}"></p>
+        <p><strong>Cytatuję.pl</strong><br>
+        <p><strong th:text="#{contact.address}"></strong><br></p>
+        <p><strong th:text="#{contact.zipCodeAndCity}"></strong><br></p>
+        <p><strong th:text="#{contact.ownedBy}"></strong><br></p>
+    </div>
+</div>
+</body>
+</html>
