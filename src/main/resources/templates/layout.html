@@ -12,18 +12,35 @@
 <div th:replace="fragments/header :: header">
 </div>
 
+
 <div class="main-content">
     <div layout:fragment="content">
 
     </div>
 </div>
 
+<div id="popup-cookies">
+    <h6 th:text="#{popup.cookies.title}"></h6>
+    <p th:text="#{popup.cookies.text}"></p>
+    <button id="popup-close" th:text="#{popup.cookies.button}"></button>
+</div>
+
 <div th:replace=" fragments/footer :: footer">
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <th:block layout:fragment="script"></th:block>
+<script>
+    $(document).ready(function() {
+        if(localStorage.getItem('popState') != 'shown'){
+            $("#popup-cookies").delay(1000).fadeIn();
+        }
+
+        $('#popup-close').click(function(e)
+        {
+            $('#popup-cookies').fadeOut();
+            localStorage.setItem('popState','shown')
+        });
+    });
+</script>
 </body>
 </html>
-
-
-
