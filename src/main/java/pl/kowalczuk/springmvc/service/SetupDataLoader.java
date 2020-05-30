@@ -57,13 +57,13 @@ public class SetupDataLoader implements
         user.setPassword(passwordEncoder.encode("admin"));
         user.setEmail("test@test.com");
         user.setCity("Test");
-        user.setCountry("Polska");
-        user.setGender("Mężczyzna");
+        user.setCountry("Poland");
+        user.setGender("Man");
         user.setPhone("123123123");
-        user.setPostalCode("99-320");
-        user.setStreetNo("32");
+        user.setPostalCode("99-999");
+        user.setStreetNo("99");
         user.setStreetNo2("");
-        user.setStreet("Sienkiewicza");
+        user.setStreet("Kwiatowa");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
 

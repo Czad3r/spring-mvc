@@ -60,7 +60,7 @@
                                         th:value="${element}"
                                         th:text="#{${element!=null?element.toLowerCase():'empty'}}"
                                         th:selected="${editProfileForm.country.equals(element)}"
-                                        label="country"/>
+                                        th:label="${element}"/>
                             </select>
                             <span class="error-message" th:if="${#fields.hasErrors('country')}" th:text="#{${#fields.errors('country')[0]}}"/>
                         </div>

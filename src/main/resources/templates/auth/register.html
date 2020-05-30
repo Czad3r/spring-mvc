@@ -67,7 +67,7 @@
                                 <option th:each="country : ${countryList}"
                                         th:value="${country}"
                                         th:text="#{${country!=null?country.toLowerCase():'empty'}}"
-                                        label="country"/>
+                                        th:label="${country}"/>
                             </select>
                             <span class="error-message" th:if="${#fields.hasErrors('country')}" th:text="#{${#fields.errors('country')[0]}}"/>
                         </div>
