@@ -13,7 +13,7 @@ public class LanguageConfig {
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver slr = new CookieLocaleResolver();
-        slr.setDefaultLocale(Locale.forLanguageTag("pl"));
+        slr.setDefaultLocale(Locale.ENGLISH);
         slr.setCookieName("lang");
         return slr;
     }
